@@ -1,1 +1,22 @@
-this is list
+/**
+ * Created by xxx on 2017-7-6.
+ * xxx
+*/
+NEJ.define([
+    'lib/base/event',                         //  对应对象v    (基础event组件)
+    'pro/extend/util',                        //  对应对象_    (平台封装工具函数)
+    'pro/components/ListComponent',           //  对应对象ListComponent
+    'text!./page.html',                       //  对应对象body
+], function(v, _, ListComponent, body, _p){
+    return ListComponent.extend({
+        template: body,
+        name: 'wgt-list',
+        url: '/wms/stocktake/list',
+        config: function(data) {
+            this.supr(data);
+        },
+        init: function(data) {
+            this.supr(data);
+        }
+    });
+});
