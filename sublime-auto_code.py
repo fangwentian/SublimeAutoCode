@@ -106,29 +106,29 @@ class SublimeAutoCodeCommand(sublime_plugin.TextCommand):
         return self.format_tag(code)
 
     def format_tag(self, code):
-        # win = self.view.window()
-        # code = code.replace('\r', '') # replace \r\n -> \n
-        # # format
-        # settings = self.get_settings()
-        # format = settings.get('date_format', '%Y-%m-%d')
-        # date = datetime.datetime.now().strftime(format)
-        # if not IS_GTE_ST3:
-        #     code = code.decode('utf8') # for st2 && Chinese characters
-        # code = code.replace('${date}', date)
+        win = self.view.window()
+        code = code.replace('\r', '') # replace \r\n -> \n
+        # format
+        settings = self.get_settings()
+        format = settings.get('date_format', '%Y-%m-%d')
+        date = datetime.datetime.now().strftime(format)
+        if not IS_GTE_ST3:
+            code = code.decode('utf8') # for st2 && Chinese characters
+        code = code.replace('${date}', date)
 
-        # attr = settings.get('attr', {})
-        # for key in attr:
-        #     code = code.replace('${%s}' % key, attr.get(key, ''))
+        attr = settings.get('attr', {})
+        for key in attr:
+            code = code.replace('${%s}' % key, attr.get(key, ''))
 
-        # # print(hasattr(win, 'extract_variables'))
-        # # print(win.extract_variables(), win.project_data())
-        # if settings.get('enable_project_variables', False) and hasattr(win, 'extract_variables'):
-        #     variables = win.extract_variables()
-        #     for key in ['project_base_name', 'project_path', 'platform']:
-        #         code = code.replace('${%s}' % key, variables.get(key, ''))
+        # print(hasattr(win, 'extract_variables'))
+        # print(win.extract_variables(), win.project_data())
+        if settings.get('enable_project_variables', False) and hasattr(win, 'extract_variables'):
+            variables = win.extract_variables()
+            for key in ['project_base_name', 'project_path', 'platform']:
+                code = code.replace('${%s}' % key, variables.get(key, ''))
 
-        # # keep ${var..}
-        # code = re.sub(r"(?<!\\)\${(?!\d)", '\${', code)
+        # keep ${var..}
+        code = re.sub(r"(?<!\\)\${(?!\d)", '\${', code)
         return code
 
     def creat_tab(self, view, paths = [None]):
