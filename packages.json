@@ -1,0 +1,20 @@
+{
+    "schema_version": "0.1",
+    "packages": [
+        {
+            "name": "SublimeAutoCode",
+            "description": "A sublime pulgin to generate code.",
+            "author": "fangwentian",
+            "homepage": "https://github.com/fangwentian/SublimeAutoCode",
+            "last_modified": "2013-05-24 12:00:00",
+            "platforms": {
+                "*": [
+                    {
+                        "version": "1.0.4",
+                        "url": "https://nodeload.github.com/kairyou/SublimeTmpl/zipball/master"
+                    }
+                ]
+            }
+        }
+    ]
+}

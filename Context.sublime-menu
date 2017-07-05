@@ -1,0 +1,85 @@
+[
+    {
+        "caption": "New File (SublimeAutoCode)",
+        "children":
+        [
+            {
+                "id": "asyncData",
+                "caption": "asyncData",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "asyncData"
+                }
+            },
+            {
+                "id": "syncData",
+                "caption": "syncData",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "syncData"
+                }
+            },
+            {
+                "id": "ftl",
+                "caption": "ftl",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "ftl"
+                }
+            },
+            {
+                "id": "entryJS",
+                "caption": "entryJS",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "entryJS"
+                }
+            },
+            {
+                "id": "BaseComponentJS",
+                "caption": "BaseComponentJS",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "BaseComponentJS"
+                }
+            },
+            {
+                "id": "ListComponentJS",
+                "caption": "ListComponentJS",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "ListComponentJS"
+                }
+            },
+            {
+                "id": "filter",
+                "caption": "filter",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "filter"
+                }
+            },
+            {
+                "id": "mixin",
+                "caption": "mixin",
+                "command": "sublime_auto_code",
+                "args": {
+                    "type": "mixin"
+                }
+            },
+            {"caption": "-"},
+            {
+                "id": "menu",
+                "command": "open_file",
+                "args": {"file": "${packages}/SublimeTmpl/Main.sublime-menu"},
+                "caption": "Menu – Default"
+            },
+            {
+                "id": "menu",
+                "command": "open_file",
+                "args": {"file": "${packages}/User/SublimeTmpl/Main.sublime-menu"},
+                "caption": "Menu – User"
+            }
+        ]
+    }
+]
