@@ -207,66 +207,66 @@ class SublimeTmplEventListener(sublime_plugin.EventListener):
             view.run_command('sublime_tmpl_replace', {'old': '${saved_filename}', 'new': filename})
             del self.unsaved_ids[view.id()]
 
-def plugin_loaded():  # for ST3 >= 3016
-    # global PACKAGES_PATH
-    PACKAGES_PATH = sublime.packages_path()
-    TARGET_PATH = os.path.join(PACKAGES_PATH, PACKAGE_NAME)
-    # print(BASE_PATH, os.path.dirname(BASE_PATH), TARGET_PATH)
+# def plugin_loaded():  # for ST3 >= 3016
+#     # global PACKAGES_PATH
+#     PACKAGES_PATH = sublime.packages_path()
+#     TARGET_PATH = os.path.join(PACKAGES_PATH, PACKAGE_NAME)
+#     # print(BASE_PATH, os.path.dirname(BASE_PATH), TARGET_PATH)
 
-    # auto create custom_path
-    custom_path = os.path.join(PACKAGES_PATH, 'User', PACKAGE_NAME, TMLP_DIR)
-    # print(custom_path, os.path.isdir(custom_path))
-    not_existed = not os.path.isdir(custom_path)
-    if not_existed:
-        os.makedirs(custom_path)
+#     # auto create custom_path
+#     custom_path = os.path.join(PACKAGES_PATH, 'User', PACKAGE_NAME, TMLP_DIR)
+#     # print(custom_path, os.path.isdir(custom_path))
+#     not_existed = not os.path.isdir(custom_path)
+#     if not_existed:
+#         os.makedirs(custom_path)
 
-        files = glob.iglob(os.path.join(BASE_PATH, TMLP_DIR, '*.tmpl'))
-        for file in files:
-            dst_file = os.path.join(custom_path, os.path.basename(file))
-            if not os.path.exists(dst_file):
-                shutil.copy(file, dst_file)
+#         files = glob.iglob(os.path.join(BASE_PATH, TMLP_DIR, '*.tmpl'))
+#         for file in files:
+#             dst_file = os.path.join(custom_path, os.path.basename(file))
+#             if not os.path.exists(dst_file):
+#                 shutil.copy(file, dst_file)
 
 
-    # first run (https://git.io/vKMIS, does not need extract files)
-    if not os.path.isdir(TARGET_PATH):
-        os.makedirs(os.path.join(TARGET_PATH, TMLP_DIR))
-        # copy user files
-        tmpl_dir = TMLP_DIR + '/'
-        file_list = [
-            'Default.sublime-commands', 'Main.sublime-menu',
-            # if don't copy .py, ST3 throw: ImportError: No module named # fix: restart sublime
-            'sublime-tmpl.py',
-            'README.md',
-            tmpl_dir + 'css.tmpl', tmpl_dir + 'html.tmpl',
-            tmpl_dir + 'js.tmpl', tmpl_dir + 'php.tmpl',
-            tmpl_dir + 'python.tmpl', tmpl_dir + 'ruby.tmpl',
-            tmpl_dir + 'xml.tmpl'
-        ]
-        try:
-            extract_zip_resource(BASE_PATH, file_list, TARGET_PATH)
-        except Exception as e:
-            print(e)
+#     # first run (https://git.io/vKMIS, does not need extract files)
+#     if not os.path.isdir(TARGET_PATH):
+#         os.makedirs(os.path.join(TARGET_PATH, TMLP_DIR))
+#         # copy user files
+#         tmpl_dir = TMLP_DIR + '/'
+#         file_list = [
+#             'Default.sublime-commands', 'Main.sublime-menu',
+#             # if don't copy .py, ST3 throw: ImportError: No module named # fix: restart sublime
+#             'sublime-tmpl.py',
+#             'README.md',
+#             tmpl_dir + 'css.tmpl', tmpl_dir + 'html.tmpl',
+#             tmpl_dir + 'js.tmpl', tmpl_dir + 'php.tmpl',
+#             tmpl_dir + 'python.tmpl', tmpl_dir + 'ruby.tmpl',
+#             tmpl_dir + 'xml.tmpl'
+#         ]
+#         try:
+#             extract_zip_resource(BASE_PATH, file_list, TARGET_PATH)
+#         except Exception as e:
+#             print(e)
 
-    # old: *.user.tmpl compatible fix
-    files = glob.iglob(os.path.join(os.path.join(TARGET_PATH, TMLP_DIR), '*.user.tmpl'))
-    for file in files:
-        filename = os.path.basename(file).replace('.user.tmpl', '.tmpl')
-        # print(file, '=>', os.path.join(custom_path, filename));
-        os.rename(file, os.path.join(custom_path, filename))
+#     # old: *.user.tmpl compatible fix
+#     files = glob.iglob(os.path.join(os.path.join(TARGET_PATH, TMLP_DIR), '*.user.tmpl'))
+#     for file in files:
+#         filename = os.path.basename(file).replace('.user.tmpl', '.tmpl')
+#         # print(file, '=>', os.path.join(custom_path, filename));
+#         os.rename(file, os.path.join(custom_path, filename))
 
-    # old: settings-custom_path compatible fix
-    settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
-    old_custom_path = settings.get('custom_path', '')
-    if old_custom_path and os.path.isdir(old_custom_path):
-        # print(old_custom_path)
-        files = glob.iglob(os.path.join(old_custom_path, '*.tmpl'))
-        for file in files:
-            filename = os.path.basename(file).replace('.user.tmpl', '.tmpl')
-            # print(file, '=>', os.path.join(custom_path, filename))
-            os.rename(file, os.path.join(custom_path, filename))
+#     # old: settings-custom_path compatible fix
+#     settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
+#     old_custom_path = settings.get('custom_path', '')
+#     if old_custom_path and os.path.isdir(old_custom_path):
+#         # print(old_custom_path)
+#         files = glob.iglob(os.path.join(old_custom_path, '*.tmpl'))
+#         for file in files:
+#             filename = os.path.basename(file).replace('.user.tmpl', '.tmpl')
+#             # print(file, '=>', os.path.join(custom_path, filename))
+#             os.rename(file, os.path.join(custom_path, filename))
 
-if not IS_GTE_ST3:
-    sublime.set_timeout(plugin_loaded, 0)
+# if not IS_GTE_ST3:
+#     sublime.set_timeout(plugin_loaded, 0)
 
 def extract_zip_resource(path_to_zip, file_list, extract_dir=None):
     if extract_dir is None:
