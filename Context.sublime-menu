@@ -67,19 +67,7 @@
                     "type": "mixin"
                 }
             },
-            {"caption": "-"},
-            {
-                "id": "menu",
-                "command": "open_file",
-                "args": {"file": "${packages}/SublimeTmpl/Main.sublime-menu"},
-                "caption": "Menu – Default"
-            },
-            {
-                "id": "menu",
-                "command": "open_file",
-                "args": {"file": "${packages}/User/SublimeTmpl/Main.sublime-menu"},
-                "caption": "Menu – User"
-            }
+            {"caption": "-"}
         ]
     }
 ]
